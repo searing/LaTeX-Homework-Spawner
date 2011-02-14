@@ -1,0 +1,270 @@
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul}
+\usepackage[usenames,dvipsnames]{color}
+<<graphicx>>\usepackage{graphicx}
+<<epstopdf>>\usepackage{epstopdf}
+<<float>>\usepackage{float}
+<<wrapfig>>\usepackage{wrapfig}
+\usepackage{keyval}
+\usepackage{ifthen}
+<<listings>>\usepackage{listings}
+\usepackage{courier}
+<<siunitx>>\usepackage[load-configurations=abbreviations]{siunitx}
+\usepackage{units}
+
+<<tikz>>\usepackage{tikz}
+<<shapes>>\usetikzlibrary{shapes}
+<<backgrounds>>\usetikzlibrary{backgrounds}
+<<circuitikz>>\usepackage[siunitx,american]{circuitikz}
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{<<HomeworkTitle>>}
+\newcommand{\hmwkDueDate}{<<DueDate>>}
+\newcommand{\hmwkClassCode}{<<ClassCode>>}
+\newcommand{\hmwkClassName}{<<ClassName>>}
+\newcommand{\hmwkAuthorName}{<<AuthorName>>}
+% Homework Specific Information, added Spring 2011 for CE 2120+
+\newcommand{\hmwkClassSection}{<<ClassSection>>}
+\newcommand{\hmwkInstructorName}{<<InstructorName>>}
+\newcommand{\hmwkAssignDate}{<<AssignDate>>}
+\newcommand{\hmwkProblems}{<<Problems>>}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% This is the color used for MATLAB comments below
+<<matlab_listings>>\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0}
+
+% For faster processing, load Matlab syntax for listings
+<<matlab_listings>>\lstloadlanguages{Matlab}%
+<<matlab_listings>>\lstset{language=Matlab,                        % Use MATLAB
+<<matlab_listings>>        frame=single,                           % Single frame around code
+<<matlab_listings>>        basicstyle=\small\ttfamily,             % Use small true type font
+<<matlab_listings>>        keywordstyle=[1]\color{Blue}\bf,        % MATLAB functions bold and blue
+<<matlab_listings>>        keywordstyle=[2]\color{Purple},         % MATLAB function arguments purple
+<<matlab_listings>>        keywordstyle=[3]\color{Blue}\underbar,  % User functions underlined and blue
+<<matlab_listings>>        identifierstyle=,                       % Nothing special about identifiers
+<<matlab_listings>>                                                % Comments small dark green courier
+<<matlab_listings>>        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small,
+<<matlab_listings>>        stringstyle=\color{Purple},             % Strings are purple
+<<matlab_listings>>        showstringspaces=false,                 % Don't put marks in string spaces
+<<matlab_listings>>        tabsize=5,                              % 5 spaces per tab
+<<matlab_listings>>        %
+<<matlab_listings>>        %%% Put standard MATLAB functions not included in the default
+<<matlab_listings>>        %%% language here
+<<matlab_listings>>        morekeywords={xlim,ylim,var,alpha,factorial,poissrnd,normpdf,normcdf},
+<<matlab_listings>>        %
+<<matlab_listings>>        %%% Put MATLAB function parameters here
+<<matlab_listings>>        morekeywords=[2]{on, off, interp},
+<<matlab_listings>>        %
+<<matlab_listings>>        %%% Put user defined functions here
+<<matlab_listings>>        morekeywords=[3]{FindESS, homework_example},
+<<matlab_listings>>        %
+<<matlab_listings>>        morecomment=[l][\color{Blue}]{...},     % Line continuation (...) like blue comment
+<<matlab_listings>>        numbers=left,                           % Line numbers on left
+<<matlab_listings>>        firstnumber=1,                          % Line numbers start with line 1
+<<matlab_listings>>        numberstyle=\tiny\color{Blue},          % Line numbers are blue
+<<matlab_listings>>        stepnumber=5                            % Line numbers go in steps of 5
+<<matlab_listings>>        }
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClassCode\ : \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}}                  %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \enterProblemHeader{\homeworkProblemName}%
+   \section{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+% These are commented to reverse their order.
+% This seems to fix a minor header issue.
+%   \subsection{\homeworkSectionName}
+%   \enterProblemHeader{\homeworkProblemName\ \homeworkSectionName}}%
+   \enterProblemHeader{\homeworkProblemName\ \homeworkSectionName}%
+   \subsection{\homeworkSectionName}}%
+  {\exitProblemHeader{\homeworkProblemName\ \homeworkSectionName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%% I think \captionwidth (commented out below) can go away
+%%%
+%% Edits the caption width
+%\newcommand{\captionwidth}[1]{%
+%  \dimen0=\columnwidth   \advance\dimen0 by-#1\relax
+%  \divide\dimen0 by2
+%  \advance\leftskip by\dimen0
+%  \advance\rightskip by\dimen0
+%}
+
+% Includes a figure
+% The first parameter is the label, which is also the name of the figure
+%   with or without the extension (e.g., .eps, .fig, .png, .gif, etc.)
+%   IF NO EXTENSION IS GIVEN, LaTeX will look for the most appropriate one.
+%   This means that if a DVI (or PS) is being produced, it will look for
+%   an eps. If a PDF is being produced, it will look for nearly anything
+%   else (gif, jpg, png, et cetera). Because of this, when I generate figures
+%   I typically generate an eps and a png to allow me the most flexibility
+%   when rendering my document.
+% The second parameter is the width of the figure normalized to column width
+%   (e.g. 0.5 for half a column, 0.75 for 75% of the column)
+% The third parameter is the caption.
+<<scalefig>>\newcommand{\scalefig}[3]{
+<<scalefig>>  \begin{figure}[ht!]
+<<scalefig>>    % Requires \usepackage{graphicx}
+<<scalefig>>    \centering
+<<scalefig>>    \includegraphics[width=#2\columnwidth]{#1}
+<<scalefig>>    %%% I think \captionwidth (see above) can go away as long as
+<<scalefig>>    %%% \centering is above
+<<scalefig>>    %\captionwidth{#2\columnwidth}%
+<<scalefig>>    \caption{#3}
+<<scalefig>>    \label{#1}
+<<scalefig>>  \end{figure}}
+
+% Includes a MATLAB script.
+% The first parameter is the label, which also is the name of the script
+%   without the .m.
+% The second parameter is the optional caption.
+<<matlab_listings>>\newcommand{\matlabscript}[2]
+<<matlab_listings>>  {\begin{itemize}\item[]\lstinputlisting[caption=#2,label=#1]{#1.m}\end{itemize}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Make column vectors easy.
+\newcommand{\colvec}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\rowvec}[1]{\left(#1\right)}
+
+% Shorthand for a one-half fraction.
+\newcommand{\half}{\frac{1}{2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+%\title{\vspace{2in}\textmd{\textbf{\hmwkClassCode:\ \hmwkClassName\ifthenelse{\equal{\hmwkTitle}{}}{}{\\\hmwkTitle}}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{3in}}
+%\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\firstpageheaders}{
+\lhead{\begin{tabular}{l} \textbf{\Large \hmwkClassName} \vspace{2px} \\ \hmwkClassCode\ifthenelse{\equal{\hmwkClassSection}{}}{}{-\hmwkClassSection} \\ \hmwkTitle\ifthenelse{\equal{\hmwkProblems}{}}{}{ (\hmwkProblems)}\ifthenelse{\equal{\hmwkAssignDate}{}}{}{\\Assigned on \hmwkAssignDate} \end{tabular}}
+\chead{}
+\rhead{\begin{tabular}{r} \textbf{\Large \hmwkAuthorName}\vspace{2px}\ifthenelse{\equal{\hmwkInstructorName}{}}{}{\\\hmwkInstructorName} \\ Due on \hmwkDueDate\ifthenelse{\equal{\hmwkAssignDate}{}}{}{\\}\ifthenelse{\equal{\hmwkInstructorName}{}}{\\\\}{}\end{tabular}}
+\ifthenelse{\equal{\hmwkAssignDate}{}}{\headheight=40pt}{\headheight=50pt}}
+
+\newcommand{\otherheaders}{\lhead{\hmwkAuthorName}\chead{\hmwkClassCode\ : \hmwkTitle}\rhead{\firstxmark}\headheight=18pt}
+
+\ifthenelse{\equal{\hmwkAssignDate}{}}{\textheight=8.82in}{\textheight=8.72in}
+
+\begin{document}
+\begin{spacing}{1.1}
+%\maketitle
+%\makealttitle
+% Uncomment the \tableofcontents and \newpage lines to get a Contents page
+% Uncomment the \setcounter line as well if you do NOT want subsections
+%       listed in Contents
+%\setcounter{tocdepth}{1}
+%\tableofcontents
+%\newpage
+\textheight=9in
+\firstpageheaders
+
+<<siunitx>>\sisetup{per-mode = symbol}
+<<siunitx>>\sisetup{exponent-product = \ast}
+
+\begin{homeworkProblem}
+A homework problem.
+\[ \SI{1}{\m} \ast \SI{2}{\m} = \SI{2}{\m\squared} \]
+\end{homeworkProblem}
+\newpage
+\otherheaders
+\begin{homeworkProblem}
+    Another homework problem, this time with sections!
+
+    \begin{homeworkSection}{(a)}
+        This section is easy.
+    \end{homeworkSection}
+
+    \begin{homeworkSection}{(b)}
+        This section is definitely harder, but still pretty easy.
+    \end{homeworkSection}
+\end{homeworkProblem}
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
