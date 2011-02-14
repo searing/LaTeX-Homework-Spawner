@@ -135,7 +135,7 @@ namespace LaTeX_Homework_Spawner {
         }
 
         private void spawnHomework() {
-            HomeworkSpawner.Spawn(@"C:\LaTeX Homework\template.v2.tex", new Dictionary<string, string> {
+            string result = HomeworkSpawner.Spawn(txtHomeworkDirectory.Text, "template.v2.tex", new Dictionary<string, string> {
                 {"AuthorName", txtAuthorName.Text},
                 {"ClassCode", extractClassCode(txtClassCode.Text)},
                 {"ClassSection", extractClassSection(txtClassCode.Text)},
@@ -160,6 +160,12 @@ namespace LaTeX_Homework_Spawner {
                 {"float", (bool) chkPackageGraphicx.IsChecked && (bool) chkPackageFloat.IsChecked},
                 {"wrapfig", (bool) chkPackageGraphicx.IsChecked && (bool) chkPackageWrapfig.IsChecked},
             });
+            if ((bool) chkCloseOnSpawn.IsChecked && result == "") {
+                this.Close();
+            }
+            if (result != "") {
+                txbInfo.Text += "\n" + result;
+            }
         }
 
         private void btnSpawn_Click(object sender, RoutedEventArgs e) {

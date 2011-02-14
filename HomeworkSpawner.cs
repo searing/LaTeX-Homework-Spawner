@@ -8,19 +8,23 @@ namespace LaTeX_Homework_Spawner {
     static class HomeworkSpawner {
         // TODO - catch exceptions.
         // TODO - save to a real location.
-        public static void Spawn(string template, IDictionary<string, string> strArgs, IDictionary<string, bool> boolArgs) {
+        public static string Spawn(string root, string template, IDictionary<string, string> strArgs, IDictionary<string, bool> boolArgs) {
             try {
                 string latexString = "";
-                using (StreamReader sr = new StreamReader(new FileStream(template, FileMode.Open, FileAccess.Read, FileShare.Read))) {
+                using (StreamReader sr = new StreamReader(new FileStream(Path.Combine(root, template), FileMode.Open, FileAccess.Read, FileShare.Read))) {
                     string rawTemplate = sr.ReadToEnd();
                     latexString = createLatexString(rawTemplate, strArgs, boolArgs);
                 }
                 if (latexString != "") {
-                    using (StreamWriter sw = openOutputFile(@"C:\LaTeX Homework\", strArgs["ClassCode"], strArgs["HomeworkTitle"])) {
+                    using (StreamWriter sw = openOutputFile(root, strArgs["ClassCode"], strArgs["HomeworkTitle"])) {
                         sw.Write(latexString);
                     }
+                    return "";
+                } else {
+                    return "Empty LaTeX string.";
                 }
-            } catch (IOException) {
+            } catch (IOException e) {
+                return "Error: " + e.Message;
             }
         }
 
