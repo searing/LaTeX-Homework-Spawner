@@ -159,7 +159,7 @@ namespace LaTeX_Homework_Spawner {
                 {"scalefig", (bool) chkPackageGraphicx.IsChecked && (bool) chkPackageScalefig.IsChecked},
                 {"float", (bool) chkPackageGraphicx.IsChecked && (bool) chkPackageFloat.IsChecked},
                 {"wrapfig", (bool) chkPackageGraphicx.IsChecked && (bool) chkPackageWrapfig.IsChecked},
-            });
+            }, (bool) chkOpenEditor.IsChecked);
             if ((bool) chkCloseOnSpawn.IsChecked && result == "") {
                 this.Close();
             }

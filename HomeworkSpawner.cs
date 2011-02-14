@@ -6,9 +6,7 @@ using System.IO;
 
 namespace LaTeX_Homework_Spawner {
     static class HomeworkSpawner {
-        // TODO - catch exceptions.
-        // TODO - save to a real location.
-        public static string Spawn(string root, string template, IDictionary<string, string> strArgs, IDictionary<string, bool> boolArgs) {
+        public static string Spawn(string root, string template, IDictionary<string, string> strArgs, IDictionary<string, bool> boolArgs, bool openEditor) {
             try {
                 string latexString = "";
                 using (StreamReader sr = new StreamReader(new FileStream(Path.Combine(root, template), FileMode.Open, FileAccess.Read, FileShare.Read))) {
@@ -19,6 +17,13 @@ namespace LaTeX_Homework_Spawner {
                     using (StreamWriter sw = openOutputFile(root, strArgs["ClassCode"], strArgs["HomeworkTitle"])) {
                         sw.Write(latexString);
                     }
+                    if (openEditor) {
+                        System.Diagnostics.Process.Start(Path.Combine(
+                            root,
+                            sanitizeFolderName(strArgs["ClassCode"]),
+                            sanitizeFolderName(strArgs["HomeworkTitle"]),
+                            sanitizeTexFileName(strArgs["ClassCode"] + "__" + strArgs["HomeworkTitle"]) + ".tex"));
+                    }
                     return "";
                 } else {
                     return "Empty LaTeX string.";
@@ -26,6 +31,7 @@ namespace LaTeX_Homework_Spawner {
             } catch (IOException e) {
                 return "Error: " + e.Message;
             }
+
         }
 
         private static string createLatexString(string source, IDictionary<string, string> strArgs, IDictionary<string, bool> boolArgs) {
