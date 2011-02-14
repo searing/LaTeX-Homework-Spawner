@@ -1,0 +1,115 @@
+﻿<Window x:Class="LaTeX_Homework_Spawner.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LaTeX Homework Spawner" SizeToContent="Height" Width="550" Loaded="Window_Loaded" Name="wdwMainWindow">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="4" />
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="4,2" />
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="4" />
+        </Style>
+        <Style x:Key="chkPackage">
+            <Setter Property="FrameworkElement.Margin" Value="5,2" />
+        </Style>
+        <Style x:Key="chkSubpackage">
+            <Setter Property="FrameworkElement.Margin" Value="15,2,4,2" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"  />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Name="txbInfo" Text="" />
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Margin" Value="4" />
+                    <Setter Property="HorizontalAlignment" Value="Right" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Homework Directory: " />
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Author Name: " />
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Class Code: " />
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Class Name: " />
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Instructor Name: " />
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Homework Title: " />
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="Assign Date: " />
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="Due Date: " />
+            <TextBlock Grid.Row="8" Grid.Column="0" Text="Problems: " />
+            <TextBox Grid.Row="1" Grid.Column="1" TabIndex="2" Name="txtAuthorName" PreviewKeyUp="txt_PreviewKeyUp" />
+            <TextBox Grid.Row="2" Grid.Column="1" TabIndex="3" Name="txtClassCode" PreviewKeyUp="txt_PreviewKeyUp" LostFocus="txtClassCode_LostFocus" />
+            <TextBox Grid.Row="3" Grid.Column="1" TabIndex="4" Name="txtClassName" PreviewKeyUp="txt_PreviewKeyUp" />
+            <TextBox Grid.Row="4" Grid.Column="1" TabIndex="5" Name="txtInstructorName" PreviewKeyUp="txt_PreviewKeyUp" />
+            <TextBox Grid.Row="5" Grid.Column="1" TabIndex="6" Name="txtHomeworkTitle" PreviewKeyUp="txt_PreviewKeyUp" />
+            <TextBox Grid.Row="6" Grid.Column="1" TabIndex="7" Name="txtAssignDate" PreviewKeyUp="txt_PreviewKeyUp" />
+            <TextBox Grid.Row="7" Grid.Column="1" TabIndex="8" Name="txtDueDate" PreviewKeyUp="txt_PreviewKeyUp" />
+            <TextBox Grid.Row="8" Grid.Column="1" TabIndex="9" Name="txtProblems" PreviewKeyUp="txt_PreviewKeyUp" />
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Row="0" Grid.Column="0" Name="txtHomeworkDirectory" TabIndex="1" PreviewKeyUp="txt_PreviewKeyUp" />
+                <Button Grid.Row="0" Grid.Column="1" Name="btnHomeworkDirectory" IsTabStop="False" Content="Browse" />
+            </Grid>
+        </Grid>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+            <CheckBox TabIndex="20" Style="{StaticResource ResourceKey=chkPackage}" IsChecked="True" Name="chkPackageSiunitx" Content="siunitx" />
+            <CheckBox TabIndex="21" Style="{StaticResource ResourceKey=chkPackage}" IsChecked="True" Name="chkPackageTikz" Content="tikz" />
+            <CheckBox TabIndex="22" Style="{StaticResource ResourceKey=chkSubpackage}" IsChecked="False" Name="chkPackageCircuitikz" Content="circuitikz" IsEnabled="{Binding ElementName=chkPackageTikz, Path=IsChecked}" />
+            <CheckBox TabIndex="23" Style="{StaticResource ResourceKey=chkSubpackage}" IsChecked="False" Name="chkPackageAutomata" Content="automata" IsEnabled="{Binding ElementName=chkPackageTikz, Path=IsChecked}" />
+            <CheckBox TabIndex="24" Style="{StaticResource ResourceKey=chkSubpackage}" IsChecked="True" Name="chkPackageShapes" Content="shapes" IsEnabled="{Binding ElementName=chkPackageTikz, Path=IsChecked}" />
+            <CheckBox TabIndex="25" Style="{StaticResource ResourceKey=chkSubpackage}" IsChecked="True" Name="chkPackageBackgrounds" Content="backgrounds" IsEnabled="{Binding ElementName=chkPackageTikz, Path=IsChecked}" />
+            <CheckBox TabIndex="26" Style="{StaticResource ResourceKey=chkPackage}" IsChecked="False" Name="chkPackageListings" Content="listings" />
+            <CheckBox TabIndex="27" Style="{StaticResource ResourceKey=chkSubpackage}" IsChecked="False" Name="chkPackageMatlabListings" Content="matlab listings" IsEnabled="{Binding ElementName=chkPackageListings, Path=IsChecked}" />
+            <CheckBox TabIndex="28" Style="{StaticResource ResourceKey=chkPackage}" IsChecked="True" Name="chkPackageGraphicx" Content="graphicx" />
+            <CheckBox TabIndex="29" Style="{StaticResource ResourceKey=chkSubpackage}" IsChecked="True" Name="chkPackageEpstopdf" Content="epstopdf" IsEnabled="{Binding ElementName=chkPackageGraphicx, Path=IsChecked}" />
+            <CheckBox TabIndex="30" Style="{StaticResource ResourceKey=chkSubpackage}" IsChecked="True" Name="chkPackageScalefig" Content="scalefig" IsEnabled="{Binding ElementName=chkPackageGraphicx, Path=IsChecked}" />
+            <CheckBox TabIndex="31" Style="{StaticResource ResourceKey=chkSubpackage}" IsChecked="True" Name="chkPackageFloat" Content="float" IsEnabled="{Binding ElementName=chkPackageGraphicx, Path=IsChecked}" />
+            <CheckBox TabIndex="32" Style="{StaticResource ResourceKey=chkSubpackage}" IsChecked="True" Name="chkPackageWrapfig" Content="wrapfig" IsEnabled="{Binding ElementName=chkPackageGraphicx, Path=IsChecked}" />
+        </StackPanel>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.Resources>
+                <Style TargetType="{x:Type CheckBox}">
+                    <Setter Property="Margin" Value="6" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <CheckBox Grid.Column="0" IsChecked="True" TabIndex="50" Name="chkCloseOnSpawn" Content="Close on spawn" />
+            <CheckBox Grid.Column="1" IsChecked="True" TabIndex="51" Name="chkOpenEditor" Content="Open editor on spawn" />
+            <Button Grid.Column="3" Name="btnSpawn" TabIndex="60" Content="Spawn Homework" Click="btnSpawn_Click" />
+        </Grid>
+    </Grid>
+</Window>

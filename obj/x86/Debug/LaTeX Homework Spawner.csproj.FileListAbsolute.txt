@@ -1,0 +1,16 @@
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\bin\Debug\LaTeX Homework Spawner.exe
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\bin\Debug\LaTeX Homework Spawner.pdb
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\bin\Debug\Newtonsoft.Json.dll
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\bin\Debug\Newtonsoft.Json.pdb
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\bin\Debug\Newtonsoft.Json.xml
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\obj\x86\Debug\MainWindow.baml
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\obj\x86\Debug\MainWindow.g.cs
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\obj\x86\Debug\App.g.cs
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\obj\x86\Debug\LaTeX Homework Spawner_MarkupCompile.cache
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\obj\x86\Debug\LaTeX Homework Spawner.g.resources
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\obj\x86\Debug\LaTeX_Homework_Spawner.Properties.Resources.resources
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\obj\x86\Debug\LaTeX Homework Spawner.exe
+C:\Programming\LaTeX Homework Spawner\LaTeX Homework Spawner\obj\x86\Debug\LaTeX Homework Spawner.pdb
