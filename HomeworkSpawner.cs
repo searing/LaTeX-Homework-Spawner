@@ -16,7 +16,7 @@ namespace LaTeX_Homework_Spawner {
                     latexString = createLatexString(rawTemplate, strArgs, boolArgs);
                 }
                 if (latexString != "") {
-                    using (StreamWriter sw = new StreamWriter(new FileStream(@"C:\LaTeX Homework\test.tex", FileMode.Create, FileAccess.Write, FileShare.None))) {
+                    using (StreamWriter sw = openOutputFile(@"C:\LaTeX Homework\", strArgs["ClassCode"], strArgs["HomeworkTitle"])) {
                         sw.Write(latexString);
                     }
                 }
@@ -34,6 +34,46 @@ namespace LaTeX_Homework_Spawner {
                 formatted = formatted.Replace("<<" + key + ">>", strArgs[key]);
             }
             return formatted;
+        }
+
+        private static char sanitizeFolderChar(char c) {
+            if (@"\/:*?""<>|".Contains(c)) {
+                return '_';
+            } else {
+                return c;
+            }
+        }
+
+        private static char sanitizeTexFileChar(char c) {
+            if (Char.IsLetterOrDigit(c)) {
+                return c;
+            } else {
+                return '_';
+            }
+        }
+
+        private static string sanitizeFolderName(string folder) {
+            return new String(folder.ToCharArray().Select(c => sanitizeFolderChar(c)).ToArray());
+        }
+
+        private static string sanitizeTexFileName(string file) {
+            return new String(file.ToCharArray().Select(c => sanitizeTexFileChar(c)).ToArray());
+        }
+
+        private static StreamWriter openOutputFile(string root, string classCode, string homeworkTitle) {
+            // Store in <root>/<classCode>/<homeworkTitle>/<classCode>_<homeworkTitle>.tex
+            if (!Directory.Exists(root)) {
+                Directory.CreateDirectory(root);
+            }
+            if (!Directory.Exists(Path.Combine(root, sanitizeFolderName(classCode)))) {
+                Directory.CreateDirectory(Path.Combine(root, sanitizeFolderName(classCode)));
+            }
+            if (!Directory.Exists(Path.Combine(root, sanitizeFolderName(classCode), sanitizeFolderName(homeworkTitle)))) {
+                Directory.CreateDirectory(Path.Combine(root, sanitizeFolderName(classCode), sanitizeFolderName(homeworkTitle)));
+            }
+            return new StreamWriter(new FileStream(
+                Path.Combine(root, sanitizeFolderName(classCode), sanitizeFolderName(homeworkTitle), sanitizeTexFileName(classCode + "__" + homeworkTitle) + ".tex"),
+                FileMode.Create, FileAccess.Write, FileShare.None));
         }
     }
 }
