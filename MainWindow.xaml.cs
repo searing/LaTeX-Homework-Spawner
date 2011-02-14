@@ -29,7 +29,11 @@ namespace LaTeX_Homework_Spawner {
 
         public MainWindow() {
             InitializeComponent();
-            tryLoadConfig(@"C:\LaTeX Homework\hmwk.settings.conf");
+            string configFile = "hwmk-spawner.conf";
+            if (Application.Current.Properties["CommandLineArgs"] != null) {
+                configFile = ((string[]) Application.Current.Properties["CommandLineArgs"])[0];
+            }
+            tryLoadConfig(configFile);
             applyConfigMessage();
         }
 
@@ -130,6 +134,7 @@ namespace LaTeX_Homework_Spawner {
 
         private void txtClassCode_LostFocus(object sender, RoutedEventArgs e) {
             applyConfigForClass(extractClassCode(txtClassCode.Text));
+            // TODO - Figure out why this auto-jump isn't working.
             jumpIfNotEmpty(txtClassName, txtInstructorName);
             jumpIfNotEmpty(txtInstructorName, txtHomeworkTitle);
         }
