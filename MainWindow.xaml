@@ -104,12 +104,14 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <CheckBox Grid.Column="0" IsChecked="True" TabIndex="50" Name="chkCloseOnSpawn" Content="Close on spawn" />
             <CheckBox Grid.Column="1" IsChecked="True" TabIndex="51" Name="chkOpenEditor" Content="Open editor on spawn" />
-            <Button Grid.Column="3" Name="btnSpawn" TabIndex="60" Content="Spawn Homework" Click="btnSpawn_Click" />
+            <CheckBox Grid.Column="2" IsChecked="False" TabIndex="52" Name="chkStripComments" Content="Strip comments" />
+            <Button Grid.Column="4" Name="btnSpawn" TabIndex="60" Content="Spawn Homework" Click="btnSpawn_Click" />
         </Grid>
     </Grid>
 </Window>

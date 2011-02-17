@@ -24,7 +24,7 @@ namespace LaTeX_Homework_Spawner {
         private JObject config;
         private string configFailReason;
 
-        private const string HeaderPrefix = "Homework Spawner v2.0 by Ethan Levine.";
+        private const string HeaderPrefix = "Homework Spawner 2.0 by Ethan Levine.";
         private const string HeaderSuffix = "View README.txt for help.";
 
         public MainWindow() {
@@ -103,6 +103,7 @@ namespace LaTeX_Homework_Spawner {
             applyConfigToTextBox("DefaultAuthorName", txtAuthorName);
             applyConfigToCheckBox("CloseOnSpawn", chkCloseOnSpawn);
             applyConfigToCheckBox("OpenEditorOnSpawn", chkOpenEditor);
+            applyConfigToCheckBox("StripComments", chkStripComments);
             applyPackageSelection("DefaultPackages");
         }
 
@@ -164,7 +165,10 @@ namespace LaTeX_Homework_Spawner {
                 {"scalefig", (bool) chkPackageGraphicx.IsChecked && (bool) chkPackageScalefig.IsChecked},
                 {"float", (bool) chkPackageGraphicx.IsChecked && (bool) chkPackageFloat.IsChecked},
                 {"wrapfig", (bool) chkPackageGraphicx.IsChecked && (bool) chkPackageWrapfig.IsChecked},
-            }, (bool) chkOpenEditor.IsChecked);
+                // Other options.
+                {"OpenEditor", (bool) chkOpenEditor.IsChecked},
+                {"StripComments", (bool) chkStripComments.IsChecked}
+            });
             if ((bool) chkCloseOnSpawn.IsChecked && result == "") {
                 this.Close();
             }
